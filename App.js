@@ -1,5 +1,6 @@
 // import { StatusBar } from "expo-status-bar";
 import {
+  Dimensions,
   StyleSheet,
   Text,
   View,
@@ -9,23 +10,46 @@ import {
   TouchableHighlight,
   SafeAreaView,
   Button,
+  StatusBar,
   Alert,
   Platform,
 } from "react-native";
+import {
+  useDimensions,
+  useDeviceOrientation,
+} from "@react-native-community/hooks";
 
 export default function App() {
   console.log("App is up and running");
+  console.log(Dimensions.get("screen"));
+  // o/p -> object {
+  //   "fontScale": 1,
+  //   "height": 850.9090909090909,
+  //   "scale": 2.75,
+  //   "width": 392.72727272727275,
+  // }
+
+  console.log(useDimensions()); //useful for both portrait and landscape mode
+  console.log(useDeviceOrientation());
+  const { landscape } = useDeviceOrientation();
 
   return (
     <SafeAreaView style={[styles.container, containerStyle]}>
       <Text numberOfLines={1} onPress={() => console.log("Text Clicked")}>
         Hello Raj
       </Text>
+      <View
+        style={{
+          backgroundColor: "green",
+          width: "100%",
+          height: landscape ? "100%" : "30%",
+        }}
+      ></View>
       {/* <Image source={require("./assets/favicon.png")} /> */}
       <TouchableHighlight onPress={() => console.log("Image Tapped")}>
         <Image
           source={{
-            width: 200,
+            width: "100%",
             height: 300,
             uri: "https://picsum.photos/200/300",
           }}
@@ -65,6 +89,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     // alignItems: "center",
     // justifyContent: "center",
-    // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });
