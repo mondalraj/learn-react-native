@@ -19,6 +19,8 @@ import {
   useDeviceOrientation,
 } from "@react-native-community/hooks";
 
+// React native Hooks Docs -> https://github.com/react-native-community/hooks
+
 export default function App() {
   console.log("App is up and running");
   console.log(Dimensions.get("screen"));
